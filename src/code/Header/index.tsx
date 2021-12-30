@@ -46,7 +46,7 @@ export const Header = ({title}: HeaderProps) => {
     
 
     useEffect(() => {
-        navRef.current.style.boxShadow = "5px 5px 5px lightgrey"
+        navRef.current.style.boxShadow = "5px 5px 10px #171212"
     })
 
     return (
