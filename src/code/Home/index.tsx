@@ -16,7 +16,7 @@ export const Home = ({API_BASE}:HomeProps) => {
     }
 
     const [searchTerm, setSearchTerm] = React.useState<string>("");
-    const [urls, setUrls] = React.useState(getUrl(searchTerm, 0))
+    const [urls, setUrls] = React.useState<string | undefined>(undefined)
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         handleSearch(searchTerm, 1)
@@ -29,7 +29,14 @@ export const Home = ({API_BASE}:HomeProps) => {
     }
 
     const handleFetchSearch = React.useCallback(() => {
-        console.log(urls)
+        if (!searchTerm) return;
+        urls !== undefined && (
+            axios
+                .get(urls)
+                .then(results => {
+                    console.log(results);
+                })
+            )
     }, [urls])
 
     React.useEffect(() => {
