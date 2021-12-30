@@ -5,6 +5,9 @@ import { Header } from './Header';
 
 
 const App = () => {
+
+  const API_BASE: string = 'https://filmosaurus-api.net/'
+
   return (
     <>
     <Header title='Filmosaurus' />
