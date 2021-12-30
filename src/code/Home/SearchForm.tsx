@@ -47,17 +47,17 @@ const StyledInput = styled.input `
 
 type SearchFormProps = {
     label: string,
-    searchTerm: string | undefined,
-    onChange: (e:React.ChangeEvent<HTMLInputElement>) => void,
-    onSubmit: (e: React.SyntheticEvent) => void
+    searchTerm: string,
+    onChange: (event:React.ChangeEvent<HTMLInputElement>) => void,
+    onSubmit: (event: React.FormEvent<HTMLFormElement>) => void,
 };
 
-export const SearchForm = ({label, searchTerm, onChange, onSubmit}: SearchFormProps) => {
+export const SearchForm = ({label, searchTerm, onChange, onSubmit,}: SearchFormProps) => {
     return (
         <StyledForm onSubmit={onSubmit}>
             <StyledLabel>{label}</StyledLabel>
             <StyledInput type="text" value={searchTerm} onChange={onChange}/>
-            <StyledButton type="button">Search</StyledButton>
+            <StyledButton type="submit">Search</StyledButton>
         </StyledForm>
     )
 };
