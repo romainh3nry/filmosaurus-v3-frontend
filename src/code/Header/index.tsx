@@ -4,15 +4,20 @@ import { useRef, useEffect, MutableRefObject} from 'react';
 
 const StyledNav = styled.div `
     background-color: transparent;
-    padding: 15px;
+    padding: 10px;
     transition: 1s;
 `;
 
-const StyledTitle = styled.span `
-    font-size: 48px;
+const StyledTitle = styled.h1 `
+    font-size: 38px;
     font-weight: 300;
     letter-spacing: 2px;
     float: left;
+
+    @media only screen and (max-width: 992px) {
+        float: none;
+        text-align: center;
+    }
 `;
 
 const StyledList = styled.ul `
@@ -30,6 +35,10 @@ const StyledLi = styled.li `
     padding: 14px 16px;
     text-decoration: none;
     font-size: 18px;
+
+    @media only screen and (max-width: 992px) {
+        float: none;
+    }
 `;
 
 const StyledA = styled.a `
