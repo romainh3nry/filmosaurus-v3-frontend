@@ -2,6 +2,7 @@ import React from "react";
 import { SearchForm } from './SearchForm';
 import axios from 'axios';
 import {Spinner} from "../Loader"
+import {SearchResults} from "./SearchResults"
 
 type HomeProps = {
     API_BASE: string
@@ -40,7 +41,7 @@ const searchReducer = (state: SearchState, action: SearchAction) => {
                 ...state,
                 isLoading: false,
                 isError: false,
-                data: action.payload.results
+                data: action.payload
             }
         case 'SEARCH_FETCH_FAILURE':
             return {
@@ -88,7 +89,7 @@ export const Home = ({API_BASE}:HomeProps) => {
                 .then(results => {
                     dispatchSearch({
                         type: 'SEARCH_FETCH_SUCCESS',
-                        payload: results.data
+                        payload: results.data.results
                     })
                 })
                 .catch(() => {
@@ -109,6 +110,9 @@ export const Home = ({API_BASE}:HomeProps) => {
          onChange={e => setSearchTerm(e.target.value)}
          onSubmit={handleSubmit}
        />
+       {search.data && (
+           <SearchResults list={search.data} />
+       )}
        </>
     )
 };
