@@ -6,6 +6,48 @@ type HomeProps = {
     API_BASE: string
 }
 
+type SearchState = {
+    data: {
+        id:number,
+        title: string,
+        year: number,
+        directors: string[]
+    }[],
+    isLoading: boolean,
+    isError: boolean
+}
+
+type SearchAction = {
+    type: 'SEARCH_FETCH_INIT' | 'SEARCH_FETCH_SUCCESS' | 'SEARCH_FETCH_FAILURE',
+    payload: any
+}
+
+const searchReducer = (state: SearchState, action: SearchAction) => {
+    switch (action.type) {
+        case 'SEARCH_FETCH_INIT':
+            return {
+                ...state,
+                isLoading: true,
+                isError: false
+            }
+        case 'SEARCH_FETCH_SUCCESS':
+            return {
+                ...state,
+                isLoading: false,
+                isError: false,
+                data: action.payload.results
+            }
+        case 'SEARCH_FETCH_FAILURE':
+            return {
+                ...state,
+                isLoading: false,
+                isError: true
+            }
+        default:
+            return state
+    }
+}
+
 export const Home = ({API_BASE}:HomeProps) => {
 
     const API_SEARCH: string = '/search';
