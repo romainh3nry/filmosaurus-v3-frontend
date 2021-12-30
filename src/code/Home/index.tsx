@@ -1,25 +1,30 @@
 import React from "react";
 import { SearchForm } from './SearchForm';
 import axios from 'axios';
+import {Spinner} from "../Loader"
 
 type HomeProps = {
     API_BASE: string
 }
 
+type Movie = {
+    id:number,
+    title: string,
+    year: number,
+    directors: string[]
+}
+
+type Movies = Movie[]
+
 type SearchState = {
-    data: {
-        id:number,
-        title: string,
-        year: number,
-        directors: string[]
-    }[],
+    data: Movies,
     isLoading: boolean,
     isError: boolean
 }
 
 type SearchAction = {
     type: 'SEARCH_FETCH_INIT' | 'SEARCH_FETCH_SUCCESS' | 'SEARCH_FETCH_FAILURE',
-    payload: any
+    payload?: any
 }
 
 const searchReducer = (state: SearchState, action: SearchAction) => {
@@ -59,6 +64,10 @@ export const Home = ({API_BASE}:HomeProps) => {
 
     const [searchTerm, setSearchTerm] = React.useState<string>("");
     const [urls, setUrls] = React.useState<string | undefined>(undefined)
+    const [search, dispatchSearch] = React.useReducer(
+        searchReducer,
+        {data: [], isLoading: false, isError: false}
+    )
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         handleSearch(searchTerm, 1)
@@ -72,13 +81,20 @@ export const Home = ({API_BASE}:HomeProps) => {
 
     const handleFetchSearch = React.useCallback(() => {
         if (!searchTerm) return;
-        urls !== undefined && (
+        if (urls !== undefined ) {
+            dispatchSearch({type: 'SEARCH_FETCH_INIT'})
             axios
                 .get(urls)
                 .then(results => {
-                    console.log(results);
+                    dispatchSearch({
+                        type: 'SEARCH_FETCH_SUCCESS',
+                        payload: results.data
+                    })
                 })
-            )
+                .catch(() => {
+                    dispatchSearch({type: 'SEARCH_FETCH_FAILURE'})
+                })
+        }
     }, [urls])
 
     React.useEffect(() => {
@@ -86,11 +102,13 @@ export const Home = ({API_BASE}:HomeProps) => {
     }, [handleFetchSearch])
 
     return (
+        <>
        <SearchForm 
          label={"search"}
          searchTerm={searchTerm}
          onChange={e => setSearchTerm(e.target.value)}
          onSubmit={handleSubmit}
        />
+       </>
     )
 };
