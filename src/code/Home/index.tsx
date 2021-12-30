@@ -1,20 +1,14 @@
 import styled from 'styled-components'
 import React from "react";
-
-const StyledForm = styled.form `
-    padding: 70px 0;
-    text-align: center;
-    padding: 10px 0 20px 0;
-    margin-top: 50px;
-`;
+import { SearchForm } from './SearchForm';
 
 export const Home = () => {
     return (
-        <>
-        <StyledForm>
-            <label>Search: </label>
-            <input type="text" />
-        </StyledForm>
-        </>
+       <SearchForm 
+        label={"search"}
+        searchTerm={"value"}
+        onChange={e => console.log(e.target.value)}
+        onSubmit={e => console.log('submitted')}
+       />
     )
 };
