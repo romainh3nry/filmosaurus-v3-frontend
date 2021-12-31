@@ -5,17 +5,43 @@ const StyledContainer = styled.div`
 `;
 
 const StyledImageDiv = styled.div`
-    border: 1px solid #171212;
+    display:flex; 
+    flex-direction: column;
+`;
+
+const StyledInfoDiv = styled.div`
+    display: flex;
+    flex-direction: column;
 `;
 
 type DetailMovieProps = {
     image: string | undefined
+    item: {
+        id: number,
+        title: string,
+        year: number,
+        plot: string,
+        directors: string[],
+        countries: string [],
+        categories: string [],
+        casts: string[]
+    }
 }
 
-export const DetailMovie = ({image}: DetailMovieProps) => {
+export const DetailMovie = ({image, item}: DetailMovieProps) => {
     return (
         <StyledContainer>
-            <img src={image} height="auto" width="500" />
+            <StyledImageDiv>
+                <img src={image} height="auto" width="500" />
+            </StyledImageDiv>
+            <StyledInfoDiv>
+                <h2>{item.title} ({item.year})</h2>
+                <div>Directed by {item.directors}</div>
+                <div>{item.countries.map((item, i) => <span key={i}>{item + " - "}</span>)}</div>
+                <div>{item.categories.map((item, i) => <span key={i}>{item + " - "}</span>)}</div>
+                <div>{item.casts.map((item, i) => <span key={i}>{item + " - "}</span>)}</div>
+                <div>{item.plot}</div>
+            </StyledInfoDiv>
         </StyledContainer>
     )
 };

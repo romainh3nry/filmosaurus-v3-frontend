@@ -145,7 +145,7 @@ export const Movie = ({API_BASE}: MovieProps) => {
                 ? (<Spinner />)
                 : (
                     <StyledDetailCol>
-                        <DetailMovie image={image} />
+                        <DetailMovie image={image} item={movieDetail.data} />
                     </StyledDetailCol>
                 )}
         </StyledFirstDiv>
