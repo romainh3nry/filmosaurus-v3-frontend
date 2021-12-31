@@ -14,6 +14,13 @@ const StyledContainer = styled.div`
 const StyledImageDiv = styled.div`
     display:flex; 
     flex-direction: column;
+
+    @media only screen and (max-width: 992px) {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
 `;
 
 const StyledInfoDiv = styled.div`
