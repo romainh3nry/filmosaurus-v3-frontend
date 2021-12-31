@@ -57,7 +57,7 @@ export const SearchForm = ({label, searchTerm, onChange, onSubmit,}: SearchFormP
         <StyledForm onSubmit={onSubmit}>
             <StyledLabel>{label}</StyledLabel>
             <StyledInput type="text" value={searchTerm} onChange={onChange}/>
-            <StyledButton type="submit">Search</StyledButton>
+            <StyledButton type="submit" disabled={!searchTerm}>Search</StyledButton>
         </StyledForm>
     )
 };
