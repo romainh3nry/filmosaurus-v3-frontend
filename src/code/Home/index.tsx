@@ -46,16 +46,16 @@ type Movie = {
 
 type Movies = Movie[]
 
-interface SearchFetchInitAction {
+type SearchFetchInitAction = {
     type: 'SEARCH_FETCH_INIT';
 }
 
-interface SearchFetchSuccessAction {
+type SearchFetchSuccessAction = {
     type: 'SEARCH_FETCH_SUCCESS';
     payload: {list: Movies, count: number}
 }
 
-interface SearchFetchFailureAction {
+type SearchFetchFailureAction = {
     type: 'SEARCH_FETCH_FAILURE';
 }
 
