@@ -13,7 +13,7 @@ const App = () => {
     <Header title='Filmosaurus' />
     <Routes>
       <Route path="/" element={<Home API_BASE={API_BASE}/>} />
-      <Route path="movie/:movieId" element={<Movie />} />
+      <Route path="movie/:movieId" element={<Movie API_BASE={API_BASE} />} />
     </Routes>
     </>
   );
