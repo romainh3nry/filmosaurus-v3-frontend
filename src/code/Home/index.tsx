@@ -4,6 +4,7 @@ import axios from 'axios';
 import {Spinner} from "../Loader"
 import {SearchResults} from "./SearchResults"
 import styled from 'styled-components';
+import {PaginationButton} from "./PaginationButton"
 
 const StyledContainer = styled.div`
     margin-top: 20px;
@@ -33,6 +34,10 @@ const StyledBoldSpan = styled.span`
     font-weight: bold;
 `;
 
+const StyledCenterP = styled.p`
+  text-align: center;
+`;
+
 type HomeProps = {
     API_BASE: string
 }
@@ -52,7 +57,12 @@ type SearchFetchInitAction = {
 
 type SearchFetchSuccessAction = {
     type: 'SEARCH_FETCH_SUCCESS';
-    payload: {list: Movies, count: number}
+    payload: {
+        list: Movies,
+        count: number,
+        next: string | null,
+        previous: string | null
+    }
 }
 
 type SearchFetchFailureAction = {
@@ -63,7 +73,9 @@ type SearchState = {
     data: Movies,
     isLoading: boolean,
     isError: boolean,
-    count: number
+    count: number,
+    next: string | null,
+    previous: string | null
 }
 
 type SearchAction = 
@@ -86,7 +98,9 @@ const searchReducer = (state: SearchState, action: SearchAction) => {
                 isLoading: false,
                 isError: false,
                 data: action.payload.list,
-                count: action.payload.count
+                count: action.payload.count,
+                next: action.payload.next,
+                previous: action.payload.previous
             }
         case 'SEARCH_FETCH_FAILURE':
             return {
@@ -109,12 +123,35 @@ export const Home = ({API_BASE}:HomeProps) => {
     }
 
     const [searchTerm, setSearchTerm] = React.useState<string>("");
-    const [urls, setUrls] = React.useState<string | undefined>(undefined)
+    const [urls, setUrls] = React.useState<string>("")
     const [currentSearch, setCurrentSearch] = React.useState<string | undefined>(undefined)
     const [search, dispatchSearch] = React.useReducer(
         searchReducer,
-        {data: [], count: 0, isLoading: false, isError: false}
+        {data: [], count: 0, next: null, previous: null, isLoading: false, isError: false}
     )
+
+    const extractSearchTerm = (url: string) => {
+        return url
+          .substring(url.lastIndexOf('?') + 1, url.lastIndexOf('&'))
+          .replace(PARAM_SEARCH, '');
+    }
+
+    const extractPage = (url: string) => {
+        const page = url.split('=')
+        return parseInt(page[page.length - 1])
+    }
+
+    const handleNext = () => {
+        const searchTerm = extractSearchTerm(urls);
+        const page = extractPage(urls)
+        handleSearch(searchTerm, page + 1);
+    }
+  
+      const handlePrevious = () => {
+        const searchTerm = extractSearchTerm(urls);
+        const page = extractPage(urls)
+        handleSearch(searchTerm, page - 1);
+    }
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         handleSearch(searchTerm, 1)
@@ -138,7 +175,9 @@ export const Home = ({API_BASE}:HomeProps) => {
                         type: 'SEARCH_FETCH_SUCCESS',
                         payload: {
                             list: results.data.results,
-                            count: results.data.count
+                            count: results.data.count,
+                            next: results.data.next,
+                            previous: results.data.previous
                         }
                     })
                 })
@@ -174,6 +213,14 @@ export const Home = ({API_BASE}:HomeProps) => {
        {search.isError && (
            <StyledCenterSpan>Something went wrong...</StyledCenterSpan>
        )}
+       <StyledCenterP>
+            {search.previous !== null &&
+              <PaginationButton move={handlePrevious} text="Previous" />
+            }
+            {search.next !== null &&
+              <PaginationButton move={handleNext} text="Next" />
+            }
+        </StyledCenterP>
        </StyledContainer>
        </>
     )
