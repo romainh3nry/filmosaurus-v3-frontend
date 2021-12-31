@@ -10,6 +10,13 @@ const StyledContainer = styled.div`
     margin-top: 20px;
     margin: auto;
     width: 50%;
+    animation: fadeIn 3s;
+    
+    @keyframes fadeIn {
+        0% {opacity:0;}
+        50% {opacity:0.5;}
+        100% {opacity:1;}
+    }
 
     @media only screen and (max-width: 1080px) {
         width: 90%;

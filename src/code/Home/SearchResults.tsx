@@ -1,8 +1,9 @@
 import React from "react";
 import {Item} from "./Item"
 import styled from 'styled-components';
+import { Link } from "react-router-dom";
 
-const StyledA = styled.a `
+const StyledA = styled(Link)`
   text-decoration: none;
   color: #171212;
 `;
@@ -27,7 +28,7 @@ type SearchResultsProps = {
 export const SearchResults = React.memo<any>(({list}: SearchResultsProps) => {
     return list.map(item => {
         return (
-            <StyledA key={item.id} href={`movies/${item.id}`}>
+            <StyledA key={item.id} to={`movies/${item.id}`}>
                 <StyledRow>
                     <Item item={item} />
                 </StyledRow>

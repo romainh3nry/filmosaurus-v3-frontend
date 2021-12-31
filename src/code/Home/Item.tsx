@@ -30,7 +30,7 @@ export const Item = ({item}: ItemProps) => {
     return (
         <StyledItem>
             <StyledColumn>{item.title}</StyledColumn>
-            <StyledColumn> | released in {item.year}</StyledColumn>
+            <StyledColumn>({item.year})</StyledColumn>
             <StyledColumn> | directed by {item.directors}</StyledColumn>
         </StyledItem>
     )
