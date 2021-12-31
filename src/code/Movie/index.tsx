@@ -1,6 +1,26 @@
 import axios from "axios";
 import React from "react";
 import { useParams } from "react-router-dom";
+import {Spinner} from "../Loader"
+import styled from 'styled-components';
+import { DetailMovie } from "./DetailMovie";
+
+const StyledFirstDiv = styled.div `
+    margin: auto;
+    display: flex;
+    @media only screen and (max-width: 992px) {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+`;
+
+const StyledDetailCol = styled.div `
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+`;
 
 type ParamType = {
     movieId: string;
@@ -27,7 +47,7 @@ type MovieFetchInitAction = {
 
 type MovieFetchSuccessAction = {
     type: 'MOVIE_FETCH_SUCCESS',
-    payload: MovieType[]
+    payload: MovieType
 }
 
 type MovieFetchFailure = {
@@ -35,7 +55,7 @@ type MovieFetchFailure = {
 }
 
 type MovieState = {
-    data: MovieType[],
+    data: any,
     isLoading: boolean,
     isError: boolean
 }
@@ -74,33 +94,60 @@ const movieReducer = (state:MovieState, action:MovieAction) => {
 export const Movie = ({API_BASE}: MovieProps) => {
 
     let params = useParams<ParamType>();
+    const urlFetchMovie = `${API_BASE}/movie/${params.movieId}`
 
     const [movieDetail, dispatchMovieDetail] = React.useReducer(
         movieReducer,
-        {data: [], isLoading: false, isError: false}
+        {data: {}, isLoading: false, isError: false}
     )
-    const url = `${API_BASE}/movie/${params.movieId}`
-
+    const [image, setImage] = React.useState<undefined | string>(undefined)
+    
     const handleFetchMovie = React.useCallback(() => {
         dispatchMovieDetail({type: 'MOVIE_FETCH_INIT'})
         axios
-            .get(url)
-            .then(results => {
+            .get(urlFetchMovie)
+            .then(result => {
                 dispatchMovieDetail({
                     type: 'MOVIE_FETCH_SUCCESS',
-                    payload: results.data
+                    payload: result.data
                 })
             })
             .catch(() => {
                 dispatchMovieDetail({type: 'MOVIE_FETCH_FAILURE'})
             })
-    }, [])
+    }, [movieDetail])
+
+    const handleFetchImage = (title:string, year:number) => {
+        const urlFetchImage = `${API_BASE}/image/get?movie=${title}&year=${year}`
+        movieDetail.data.title  &&
+        axios
+            .get(urlFetchImage)
+            .then(result => {
+                setImage(result.data.image)
+            })
+            .catch(() => {
+                setImage('error')
+            })
+    }
 
     React.useEffect(() => {
         handleFetchMovie()
-    }, [handleFetchMovie])
+    }, [])
+
+    React.useEffect(() => {
+        handleFetchImage(movieDetail.data.title, movieDetail.data.year)
+    }, [movieDetail.data])
 
     return (
-        <div>Movie Detail : {params.movieId}</div>
+        <StyledFirstDiv>
+            {movieDetail.isError && <span>Something went wrong...</span>}
+            {movieDetail.isLoading
+                ? (<Spinner />)
+                : (
+                    <StyledDetailCol>
+                        <DetailMovie image={image} />
+                    </StyledDetailCol>
+                )}
+        </StyledFirstDiv>
     )
 };
