@@ -1,4 +1,6 @@
+import React from 'react';
 import styled from 'styled-components';
+import {movieReducer} from "./index"
 
 const StyledContainer = styled.div`
     display: flex;
@@ -67,7 +69,12 @@ type DetailMovieProps = {
 }
 
 export const DetailMovie = ({image, movie}: DetailMovieProps) => {
-    console.log(movie)
+
+    const [movieDetail, dispatchMovieDetail] = React.useReducer(
+        movieReducer,
+        {data: {}, isLoading: false, isError: false}
+    )
+
     return (
         <StyledContainer>
             <StyledImageDiv>

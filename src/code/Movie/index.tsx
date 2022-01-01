@@ -22,6 +22,14 @@ const StyledDetailCol = styled.div `
     padding: 15px;
 `;
 
+const StyledCenteredSpinner = styled.div`
+    display: flex;
+    width: 100%;
+    height: 500px;
+    justify-content: center;
+    align-items: center;
+`;
+
 type ParamType = {
     movieId: string;
 }
@@ -65,7 +73,7 @@ type MovieAction =
     | MovieFetchSuccessAction
     | MovieFetchFailure
 
-const movieReducer = (state:MovieState, action:MovieAction) => {
+export const movieReducer = (state:MovieState, action:MovieAction) => {
     switch (action.type) {
         case 'MOVIE_FETCH_INIT':
             return {
@@ -142,7 +150,7 @@ export const Movie = ({API_BASE}: MovieProps) => {
         <StyledFirstDiv>
             {movieDetail.isError && <span>Something went wrong...</span>}
             {movieDetail.isLoading
-                ? (<Spinner />)
+                ? (<StyledCenteredSpinner><Spinner /></StyledCenteredSpinner>)
                 : (
                     <StyledDetailCol>
                         {Object.keys(movieDetail.data).length > 0 && (
