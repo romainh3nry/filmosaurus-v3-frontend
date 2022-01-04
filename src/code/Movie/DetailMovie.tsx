@@ -74,6 +74,8 @@ const StyledRateColumn = styled.div`
 const StyledRateIcon = styled.div`
     font-size: 50px;
     padding: 15px;
+    margin-left: 50px;
+    margin-right: 50px;
 `;
 
 type DetailMovieProps = {
