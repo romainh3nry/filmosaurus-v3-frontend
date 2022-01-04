@@ -28,7 +28,7 @@ type SearchResultsProps = {
 export const SearchResults = React.memo<any>(({list}: SearchResultsProps) => {
     return list.map(item => {
         return (
-            <StyledA key={item.id} to={`movies/${item.id}`}>
+            <StyledA key={item.id} to={`movie/${item.id}`}>
                 <StyledRow>
                     <Item item={item} />
                 </StyledRow>
