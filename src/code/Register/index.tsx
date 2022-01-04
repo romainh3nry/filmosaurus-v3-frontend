@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components'
 
 const StyledContainer = styled.div`
@@ -61,19 +62,48 @@ const StyledButton = styled.button `
 }
 `;
 
+type RegisterForm = {
+    username: string
+    email: string
+    password1: string
+    password2: string
+}
+
 export const Register = () => {
+
+    const [username, setUsername] = React.useState<string>("")
+    const [email, setEmail] = React.useState<string>("")
+    const [password1, setPassword1] = React.useState<string>("")
+    const [password2, setPassword2] = React.useState<string>("")
+
     return (
         <StyledContainer>
             <h3>Register</h3>
             <StyledForm>
                 <StyledLabel>Username</StyledLabel>
-                <StyledInput type="text" />
+                <StyledInput
+                    type="text"
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
+                    value={username}
+                />
                 <StyledLabel>Email</StyledLabel>
-                <StyledInput type="email" />
+                <StyledInput
+                    type="email" 
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+                    value={email}
+                />
                 <StyledLabel>Password</StyledLabel>
-                <StyledInput type="password" />
+                <StyledInput
+                    type="password"
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword1(e.target.value)}
+                    value={password1}
+                />
                 <StyledLabel>Repeat password</StyledLabel>
-                <StyledInput type="password" />
+                <StyledInput
+                    type="password"
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword2(e.target.value)}
+                    value={password2}
+                />
                 <StyledButton type="button">Register</StyledButton>
             </StyledForm>
         </StyledContainer>
