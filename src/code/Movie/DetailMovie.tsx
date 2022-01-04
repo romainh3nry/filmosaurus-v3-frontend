@@ -1,6 +1,5 @@
-import React from 'react';
 import styled from 'styled-components';
-import {movieReducer} from "./index"
+import {Spinner} from "../Loader"
 
 const StyledContainer = styled.div`
     display: flex;
@@ -54,6 +53,14 @@ const StyledDivider = styled.div`
     }
 `;
 
+const StyledCenteredSpinner = styled.div`
+    display: flex;
+    width: 100%;
+    height: 500px;
+    justify-content: center;
+    align-items: center;
+`;
+
 type DetailMovieProps = {
     image: string | undefined
     movie: {
@@ -70,15 +77,13 @@ type DetailMovieProps = {
 
 export const DetailMovie = ({image, movie}: DetailMovieProps) => {
 
-    const [movieDetail, dispatchMovieDetail] = React.useReducer(
-        movieReducer,
-        {data: {}, isLoading: false, isError: false}
-    )
-
     return (
         <StyledContainer>
             <StyledImageDiv>
-                <img src={image} height="auto" width="500" />
+                {/*<img src={image} height="auto" width="500" />*/}
+                {image 
+                    ? (<img src={image} height="auto" width="500" />)
+                    : (<StyledCenteredSpinner><Spinner /></StyledCenteredSpinner>)}
             </StyledImageDiv>
             <StyledInfoDiv>
                 <h2>{movie.title} ({movie.year})</h2>
