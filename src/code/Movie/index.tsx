@@ -73,6 +73,10 @@ type MovieAction =
     | MovieFetchSuccessAction
     | MovieFetchFailure
 
+type MovieRatings = {
+    ratings: {}[]
+}
+
 export const movieReducer = (state:MovieState, action:MovieAction) => {
     switch (action.type) {
         case 'MOVIE_FETCH_INIT':
@@ -109,6 +113,7 @@ export const Movie = ({API_BASE}: MovieProps) => {
         {data: {}, isLoading: false, isError: false}
     )
     const [image, setImage] = React.useState<undefined | string>(undefined)
+    const [ratings, setRatings] = React.useState<MovieRatings | undefined>(undefined)
     
     const handleFetchMovie = React.useCallback(() => {
         dispatchMovieDetail({type: 'MOVIE_FETCH_INIT'})
@@ -138,12 +143,26 @@ export const Movie = ({API_BASE}: MovieProps) => {
             })
     }
 
+    const handleFetchRatings = (title:string, year:number) => {
+        const urlFetchRates = `${API_BASE}/ratings/load?movie=${title}&year=${year}`
+        movieDetail.data.title  &&
+        axios
+            .get(urlFetchRates)
+            .then(result => {
+                setRatings(result.data);
+            })
+    }
+
     React.useEffect(() => {
         handleFetchMovie()
     }, [])
 
     React.useEffect(() => {
         handleFetchImage(movieDetail.data.title, movieDetail.data.year)
+    }, [movieDetail.data])
+
+    React.useEffect(() => {
+        handleFetchRatings(movieDetail.data.title, movieDetail.data.year)
     }, [movieDetail.data])
 
     return (
@@ -154,7 +173,7 @@ export const Movie = ({API_BASE}: MovieProps) => {
                 : (
                     <StyledDetailCol>
                         {Object.keys(movieDetail.data).length > 0 && (
-                            <DetailMovie image={image} movie={movieDetail.data} />
+                            <DetailMovie image={image} movie={movieDetail.data} ratings={ratings?.ratings} />
                         )}
                     </StyledDetailCol>
                 )}
