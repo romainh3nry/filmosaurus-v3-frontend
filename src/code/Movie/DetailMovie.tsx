@@ -76,6 +76,10 @@ const StyledRateIcon = styled.div`
     padding: 15px;
     margin-left: 50px;
     margin-right: 50px;
+
+    a {
+        color: #171212;
+    }
 `;
 
 type DetailMovieProps = {
@@ -120,12 +124,20 @@ export const DetailMovie = ({image, movie, ratings}: DetailMovieProps) => {
                     ? (
                         <>
                         <StyledRateColumn>
-                        <StyledRateIcon><span className="iconify" data-icon="cib:allocine"></span></StyledRateIcon>
+                        <StyledRateIcon>
+                            <a href={`https://www.allocine.fr/film/fichefilm_gen_cfilm=${ratings[0].allocine.id}.html`} target="_blank">
+                                <span className="iconify" data-icon="cib:allocine"></span>
+                            </a>
+                        </StyledRateIcon>
                         <div>Press: {ratings && (ratings[0].allocine.press)}</div>
                         <div>Spectators: {ratings && (ratings[0].allocine.spectator)}</div>
                         </StyledRateColumn>
                         <StyledRateColumn>
-                            <StyledRateIcon><i className="fab fa-imdb"></i></StyledRateIcon>
+                            <StyledRateIcon>
+                                <a target="_blank" href={`https://www.imdb.com/title/${ratings[1].id}/`}>
+                                    <i className="fab fa-imdb"></i>
+                                </a>
+                            </StyledRateIcon>
                             <div>{ratings && (ratings[1].imdb)}</div>
                         </StyledRateColumn>
                         </>
