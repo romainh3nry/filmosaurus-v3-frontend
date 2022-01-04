@@ -57,7 +57,6 @@ const StyledDivider = styled.div`
 const StyledCenteredSpinner = styled.div`
     display: flex;
     width: 100%;
-    height: 500px;
     justify-content: center;
     align-items: center;
 `;
@@ -115,15 +114,21 @@ export const DetailMovie = ({image, movie, ratings}: DetailMovieProps) => {
                 <div>{movie.plot}</div>
                 <StyledDivider><hr /></StyledDivider>
                 <StyledRatesBlock>
-                <StyledRateColumn>
-                    <StyledRateIcon><span className="iconify" data-icon="cib:allocine"></span></StyledRateIcon>
-                    <div>Press: {ratings && (ratings[0].allocine.press)}</div>
-                    <div>Spectators: {ratings && (ratings[0].allocine.spectator)}</div>
-                </StyledRateColumn>
-                <StyledRateColumn>
-                    <StyledRateIcon><i className="fab fa-imdb"></i></StyledRateIcon>
-                    <div>{ratings && (ratings[1].imdb)}</div>
-                </StyledRateColumn>
+                {ratings 
+                    ? (
+                        <>
+                        <StyledRateColumn>
+                        <StyledRateIcon><span className="iconify" data-icon="cib:allocine"></span></StyledRateIcon>
+                        <div>Press: {ratings && (ratings[0].allocine.press)}</div>
+                        <div>Spectators: {ratings && (ratings[0].allocine.spectator)}</div>
+                        </StyledRateColumn>
+                        <StyledRateColumn>
+                            <StyledRateIcon><i className="fab fa-imdb"></i></StyledRateIcon>
+                            <div>{ratings && (ratings[1].imdb)}</div>
+                        </StyledRateColumn>
+                        </>
+                    )
+                    : (<StyledCenteredSpinner><Spinner /></StyledCenteredSpinner>)}    
                 </StyledRatesBlock>
             </StyledInfoDiv>
         </StyledContainer>
