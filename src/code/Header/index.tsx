@@ -46,10 +46,11 @@ const StyledA = styled.a `
 `;
 
 type HeaderProps = {
-    title: string
+    title: string,
+    isAthenticated: boolean
 } 
 
-export const Header = ({title}: HeaderProps) => {
+export const Header = ({title, isAthenticated}: HeaderProps) => {
 
     const navRef = useRef() as MutableRefObject<HTMLInputElement>
     
@@ -62,8 +63,19 @@ export const Header = ({title}: HeaderProps) => {
         <StyledNav ref={navRef}>
             <StyledList>
                 <StyledA href="/"><StyledTitle>{title}</StyledTitle></StyledA>
-                <StyledLi><Link to="accounts/register">Sign up</Link></StyledLi>
-                <StyledLi><Link to="accounts/login">Login</Link></StyledLi>
+                {isAthenticated 
+                    ? (
+                        <>
+                        <StyledLi><Link to="accounts/logout">Logout</Link></StyledLi>
+                        <StyledLi><Link to="#">Account</Link></StyledLi>
+                        </>
+                    )
+                    : (
+                        <>
+                        <StyledLi><Link to="accounts/register">Sign up</Link></StyledLi>
+                        <StyledLi><Link to="accounts/login">Login</Link></StyledLi>
+                        </>
+                    )}
             </StyledList>
         </StyledNav>
     )
