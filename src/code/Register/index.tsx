@@ -120,6 +120,8 @@ const RegisterReducer = (state: RegisterState, action: RegisterAction) => {
                 isLoading: false,
                 isError: true
             }
+        default:
+            return state
     }
 }
 
@@ -129,6 +131,10 @@ export const Register = ({API_BASE, getToken}: RegisterProps) => {
     const [email, setEmail] = React.useState<string>("")
     const [password1, setPassword1] = React.useState<string>("")
     const [password2, setPassword2] = React.useState<string>("")
+    const [register, dispatchReducer] = React.useReducer(
+        RegisterReducer,
+        {data: undefined, isLoading: false, isError: false}
+    )
 
     const url: string = `${API_BASE}/dj-rest-auth/registration/`
 
