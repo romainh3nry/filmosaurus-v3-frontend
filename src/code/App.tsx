@@ -5,6 +5,7 @@ import { Header } from './Header';
 import { Movie } from './Movie';
 import { Register } from './Register';
 import { useCookies } from 'react-cookie';
+import { LogOut } from './LogOut';
 
 
 const API_BASE = 'https://filmosaurus-api.net/api/v1'
@@ -33,6 +34,7 @@ const App = () => {
       <Route path="/" element={<Home API_BASE={API_BASE}/>} />
       <Route path="movie/:movieId" element={<Movie API_BASE={API_BASE} />} />
       <Route path="accounts/register" element={<Register API_BASE={API_BASE} getToken={setToken} />} />
+      <Route path="accounts/logout" element={<LogOut />} />
     </Routes>
     </>
   );
