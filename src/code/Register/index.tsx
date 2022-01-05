@@ -86,6 +86,7 @@ type RegisterSuccessAction = {
 
 type RegisterFailureAction = {
     type: 'REGISTER_FAILURE'
+    payload: string
 }
 
 type RegisterState = {
@@ -118,7 +119,8 @@ const RegisterReducer = (state: RegisterState, action: RegisterAction) => {
             return {
                 ...state,
                 isLoading: false,
-                isError: true
+                isError: true,
+                payload: action.payload
             }
         default:
             return state
@@ -139,12 +141,25 @@ export const Register = ({API_BASE, getToken}: RegisterProps) => {
     const url: string = `${API_BASE}/dj-rest-auth/registration/`
 
     const handlePostRegister = (data: RegisterForm) => {
+        dispatchReducer({type: 'REGISTER_INIT'})
         axios
             .post(url, data)
             .then(res => {
+                dispatchReducer(
+                    {
+                        type: 'REGISTER_SUCCESS',
+                        payload: res.data
+                    }
+                )
                 getToken(res.data.key)
             })
-    } 
+            .catch(e => {
+                dispatchReducer({
+                    type: 'REGISTER_FAILURE',
+                    payload: e.response
+                })
+            })
+    }
 
     const handleSubmit = (e: any) => {
         const data: RegisterForm = {
