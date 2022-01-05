@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components'
+import axios from 'axios';
 
 const StyledContainer = styled.div`
     margin: auto;
@@ -69,12 +70,27 @@ type RegisterForm = {
     password2: string
 }
 
-export const Register = () => {
+type RegisterProps = {
+    API_BASE: string;
+    getToken: React.Dispatch<React.SetStateAction<string | undefined>>
+};
+
+export const Register = ({API_BASE, getToken}: RegisterProps) => {
 
     const [username, setUsername] = React.useState<string>("")
     const [email, setEmail] = React.useState<string>("")
     const [password1, setPassword1] = React.useState<string>("")
     const [password2, setPassword2] = React.useState<string>("")
+
+    const url: string = `${API_BASE}/dj-rest-auth/registration/`
+
+    const handlePostRegister = (data: RegisterForm) => {
+        axios
+            .post(url, data)
+            .then(res => {
+                getToken(res.data.key)
+            })
+    } 
 
     const handleSubmit = (e: any) => {
         const data: RegisterForm = {
@@ -83,6 +99,7 @@ export const Register = () => {
             password1: password1,
             password2: password2
         }
+        handlePostRegister(data)
         e.preventDefault();
     };
 
