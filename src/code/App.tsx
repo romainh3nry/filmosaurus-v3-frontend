@@ -4,16 +4,31 @@ import { Home } from './Home';
 import { Header } from './Header';
 import { Movie } from './Movie';
 import { Register } from './Register';
+import { useCookies } from 'react-cookie';
+
 
 const API_BASE = 'https://filmosaurus-api.net/api/v1'
 
 const App = () => {
 
   const [token, setToken] = React.useState<string | undefined>(undefined)
+  const [cookies, setCookie, removeCookie] = useCookies(['auth-token']);
+
+  const handleLogin = () => {
+    setCookie('auth-token', token, {path: '/', maxAge: 86400})
+  }
+
+  React.useEffect(() => {
+    if (token !== undefined && !cookies["auth-token"]) {
+      handleLogin();
+    }
+  }, [token])
 
   return (
     <>
-    <Header title='Filmosaurus' />
+    {cookies["auth-token"] 
+      ? (<Header isAthenticated={true} title='Filmosaurus'/>)
+      : <Header isAthenticated={false} title='Filmosaurus'/>}
     <Routes>
       <Route path="/" element={<Home API_BASE={API_BASE}/>} />
       <Route path="movie/:movieId" element={<Movie API_BASE={API_BASE} />} />
