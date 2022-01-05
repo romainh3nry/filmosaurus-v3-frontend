@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components'
 import axios from 'axios';
 import { Spinner } from '../Loader';
+import { useNavigate } from 'react-router';
 
 const StyledContainer = styled.div`
     margin: auto;
@@ -66,6 +67,14 @@ const StyledButton = styled.button `
 
 const StyledErrorAlert = styled.h4`
     background-color: #BB4F37;
+    text-align: center;
+    padding: 10px;
+    color: white;
+    border: 3px solid #171212;
+`;
+
+const StyledSuccessAlert = styled.h4`
+    background-color: #6EC170;
     text-align: center;
     padding: 10px;
     color: white;
@@ -138,10 +147,12 @@ const RegisterReducer = (state: RegisterState, action: RegisterAction) => {
 
 export const Register = ({API_BASE, getToken}: RegisterProps) => {
 
+    const navigate = useNavigate();
     const [username, setUsername] = React.useState<string>("")
     const [email, setEmail] = React.useState<string>("")
     const [password1, setPassword1] = React.useState<string>("")
     const [password2, setPassword2] = React.useState<string>("")
+    const [success, setSuccess] = React.useState(false);
     const [register, dispatchReducer] = React.useReducer(
         RegisterReducer,
         {data: undefined, isLoading: false, isError: false}
@@ -161,6 +172,10 @@ export const Register = ({API_BASE, getToken}: RegisterProps) => {
                     }
                 )
                 getToken(res.data.key)
+                setSuccess(true)
+                setTimeout(() => {
+                    navigate('/')
+                }, 3000)
             })
             .catch(e => {
                 dispatchReducer({
@@ -187,6 +202,7 @@ export const Register = ({API_BASE, getToken}: RegisterProps) => {
             {register.isError && (
                 <StyledErrorAlert>Oops ! Something went wrong...</StyledErrorAlert>
             )}
+            {success && <StyledSuccessAlert>Successfully registered ! You're about to be redirected...</StyledSuccessAlert>}
             <StyledForm onSubmit={handleSubmit}>
                 <StyledLabel>Username</StyledLabel>
                 <StyledInput
