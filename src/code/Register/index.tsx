@@ -15,7 +15,7 @@ const StyledContainer = styled.div`
     }
 `;
 
-const StyledForm = styled.div`
+const StyledForm = styled.form`
     display: flex;
     flex-direction: column;
     padding: 70px 0;
@@ -76,35 +76,49 @@ export const Register = () => {
     const [password1, setPassword1] = React.useState<string>("")
     const [password2, setPassword2] = React.useState<string>("")
 
+    const handleSubmit = (e: any) => {
+        const data: RegisterForm = {
+            username: username,
+            email: email,
+            password1: password1,
+            password2: password2
+        }
+        e.preventDefault();
+    };
+
     return (
         <StyledContainer>
             <h3>Register</h3>
-            <StyledForm>
+            <StyledForm onSubmit={handleSubmit}>
                 <StyledLabel>Username</StyledLabel>
                 <StyledInput
                     type="text"
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
                     value={username}
+                    name="username"
                 />
                 <StyledLabel>Email</StyledLabel>
                 <StyledInput
                     type="email" 
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                     value={email}
+                    name="email"
                 />
                 <StyledLabel>Password</StyledLabel>
                 <StyledInput
                     type="password"
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword1(e.target.value)}
                     value={password1}
+                    name="password1"
                 />
                 <StyledLabel>Repeat password</StyledLabel>
                 <StyledInput
                     type="password"
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword2(e.target.value)}
                     value={password2}
+                    name="password2"
                 />
-                <StyledButton type="button">Register</StyledButton>
+                <StyledButton type="submit">Register</StyledButton>
             </StyledForm>
         </StyledContainer>
     )
