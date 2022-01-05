@@ -75,6 +75,54 @@ type RegisterProps = {
     getToken: React.Dispatch<React.SetStateAction<string | undefined>>
 };
 
+type RegisterInitAction = {
+    type: 'REGISTER_INIT'
+}
+
+type RegisterSuccessAction = {
+    type: 'REGISTER_SUCCESS'
+    payload: string
+}
+
+type RegisterFailureAction = {
+    type: 'REGISTER_FAILURE'
+}
+
+type RegisterState = {
+    data: string | undefined
+    isLoading: boolean
+    isError: Boolean
+}
+
+type RegisterAction = 
+    | RegisterInitAction
+    | RegisterSuccessAction
+    | RegisterFailureAction
+
+const RegisterReducer = (state: RegisterState, action: RegisterAction) => {
+    switch (action.type) {
+        case 'REGISTER_INIT':
+            return {
+                ...state,
+                isLoading: true,
+                isError: false
+            }
+        case 'REGISTER_SUCCESS':
+            return {
+                ...state,
+                isLoading: false,
+                isError: false,
+                data: action.payload
+            }
+        case 'REGISTER_FAILURE':
+            return {
+                ...state,
+                isLoading: false,
+                isError: true
+            }
+    }
+}
+
 export const Register = ({API_BASE, getToken}: RegisterProps) => {
 
     const [username, setUsername] = React.useState<string>("")
