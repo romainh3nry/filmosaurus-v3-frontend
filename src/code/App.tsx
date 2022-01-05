@@ -10,7 +10,6 @@ const API_BASE = 'https://filmosaurus-api.net/api/v1'
 const App = () => {
 
   const [token, setToken] = React.useState<string | undefined>(undefined)
-  console.log(token)
 
   return (
     <>

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
 import axios from 'axios';
+import { Spinner } from '../Loader';
 
 const StyledContainer = styled.div`
     margin: auto;
@@ -61,6 +62,14 @@ const StyledButton = styled.button `
     width: 50%;
     border: none;
 }
+`;
+
+const StyledErrorAlert = styled.h4`
+    background-color: #BB4F37;
+    text-align: center;
+    padding: 10px;
+    color: white;
+    border: 3px solid #171212;
 `;
 
 type RegisterForm = {
@@ -175,6 +184,9 @@ export const Register = ({API_BASE, getToken}: RegisterProps) => {
     return (
         <StyledContainer>
             <h3>Register</h3>
+            {register.isError && (
+                <StyledErrorAlert>Oops ! Something went wrong...</StyledErrorAlert>
+            )}
             <StyledForm onSubmit={handleSubmit}>
                 <StyledLabel>Username</StyledLabel>
                 <StyledInput
@@ -204,7 +216,9 @@ export const Register = ({API_BASE, getToken}: RegisterProps) => {
                     value={password2}
                     name="password2"
                 />
-                <StyledButton type="submit">Register</StyledButton>
+                <StyledButton type="submit">
+                    {register.isLoading ? <Spinner height={40} /> : <>Register</>}
+                </StyledButton>
             </StyledForm>
         </StyledContainer>
     )
