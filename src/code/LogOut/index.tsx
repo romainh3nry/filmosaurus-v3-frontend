@@ -37,15 +37,17 @@ const StyledButton = styled.button `
 `;
 
 type LogoutProps = {
-    removeCookie: any
+    removeCookie: any,
+    setToken: React.Dispatch<React.SetStateAction<string | undefined>>
 }
 
-export const LogOut = ({removeCookie}: LogoutProps) => {
+export const LogOut = ({removeCookie, setToken}: LogoutProps) => {
 
     const navigate = useNavigate();
 
     const handleConfirmClick = () => {
         removeCookie('auth-token', {path: '/'})
+        setToken(undefined)
         navigate('/')
     }
 
