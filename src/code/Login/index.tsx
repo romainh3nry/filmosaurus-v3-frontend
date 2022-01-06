@@ -65,6 +65,22 @@ const StyledButton = styled.button `
 }
 `;
 
+const StyledErrorAlert = styled.h4`
+    background-color: #BB4F37;
+    text-align: center;
+    padding: 10px;
+    color: white;
+    border: 3px solid #171212;
+`;
+
+const StyledSuccessAlert = styled.h4`
+    background-color: #6EC170;
+    text-align: center;
+    padding: 10px;
+    color: white;
+    border: 3px solid #171212;
+`;
+
 type LoginForm = {
     username: string
     email: string
@@ -137,6 +153,7 @@ export const Login = ({getToken, API_BASE}: LoginProps) => {
     const [username, setUsername] = React.useState<string>("")
     const [email, setEmail] = React.useState<string>("")
     const [password, setPassword] = React.useState<string>("")
+    const [success, setSuccess] = React.useState(false);
 
     const handleSubmit = (e: any) => {
         handlePostLogin();
@@ -158,6 +175,7 @@ export const Login = ({getToken, API_BASE}: LoginProps) => {
                     payload: res.data
                 })
                 getToken(res.data.key)
+                setSuccess(true)
                 setTimeout(() => {
                     navigate('/')
                 }, 3000)
@@ -172,6 +190,10 @@ export const Login = ({getToken, API_BASE}: LoginProps) => {
     return (
         <StyledContainer>
             <h3>Login</h3>
+            {login.isError && (
+                <StyledErrorAlert>Oops ! Something went wrong...</StyledErrorAlert>
+            )}
+            {success && <StyledSuccessAlert>Successfully logged ! You're about to be redirected...</StyledSuccessAlert>}
             <StyledForm onSubmit={handleSubmit}>
                 <StyledLabel>Username</StyledLabel>
                 <StyledInput
