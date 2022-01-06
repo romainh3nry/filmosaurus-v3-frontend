@@ -41,7 +41,7 @@ type LogoutProps = {
 }
 
 export const LogOut = ({removeCookie}: LogoutProps) => {
-    
+
     const navigate = useNavigate();
 
     const handleConfirmClick = () => {
