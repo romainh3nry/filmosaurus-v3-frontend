@@ -65,6 +65,12 @@ const StyledButton = styled.button `
 }
 `;
 
+type LoginForm = {
+    username: string
+    email: string
+    password: string
+}
+
 type LoginInitAction = {
     type: 'LOGIN_INIT';
 }
@@ -131,12 +137,22 @@ export const Login = ({getToken, API_BASE}: LoginProps) => {
     const [email, setEmail] = React.useState<string>("")
     const [password, setPassword] = React.useState<string>("")
 
-    const handleSubmit = () => {
-        console.log('submitted');
+    const handleSubmit = (e: any) => {
+        handlePostLogin();
+        e.preventDefault();
     }
 
     const handlePostLogin = () => {
-        console.log('login');
+        const data: LoginForm = {
+            username: username,
+            email: email,
+            password: password,
+        }
+        axios
+            .post(url, data)
+            .then(res => {
+                console.log(res);
+            })
     }
 
     return (
@@ -162,7 +178,7 @@ export const Login = ({getToken, API_BASE}: LoginProps) => {
                     type="password"
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
                     value={password}
-                    name="password1"
+                    name="password"
                 />
                 <StyledButton type="submit">
                     {login.isLoading ? <Spinner height={40} /> : <>Login</>}
