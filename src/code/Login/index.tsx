@@ -27,6 +27,11 @@ type LoginAction =
     | LoginSucessAction
     | LoginFailureAction
 
+type LoginProps = {
+    getToken: React.Dispatch<React.SetStateAction<string | undefined>>
+    API_BASE: string
+}
+
 const loginReducer = (state: LoginState, action: LoginAction) => {
     switch (action.type) {
         case 'LOGIN_INIT':
@@ -53,7 +58,7 @@ const loginReducer = (state: LoginState, action: LoginAction) => {
     }
 }
 
-export const Login = () => {
+export const Login = ({getToken, API_BASE}: LoginProps) => {
     return (
         <div>Login</div>
     )
