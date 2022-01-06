@@ -128,6 +128,7 @@ const loginReducer = (state: LoginState, action: LoginAction) => {
 
 export const Login = ({getToken, API_BASE}: LoginProps) => {
 
+    const navigate = useNavigate();
     const url = `${API_BASE}/dj-rest-auth/login/`;
     const [login, dispatchLogin] = React.useReducer(
         loginReducer,
@@ -148,10 +149,23 @@ export const Login = ({getToken, API_BASE}: LoginProps) => {
             email: email,
             password: password,
         }
+        dispatchLogin({type: 'LOGIN_INIT'})
         axios
             .post(url, data)
             .then(res => {
-                console.log(res);
+                dispatchLogin({
+                    type: 'LOGIN_SUCCESS',
+                    payload: res.data
+                })
+                getToken(res.data.key)
+                setTimeout(() => {
+                    navigate('/')
+                }, 3000)
+            })
+            .catch(e => {
+                dispatchLogin({
+                    type: 'LOGIN_FAILURE'
+                })
             })
     }
 
