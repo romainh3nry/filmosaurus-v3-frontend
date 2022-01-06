@@ -34,7 +34,7 @@ const App = () => {
       <Route path="/" element={<Home API_BASE={API_BASE}/>} />
       <Route path="movie/:movieId" element={<Movie API_BASE={API_BASE} />} />
       <Route path="accounts/register" element={<Register API_BASE={API_BASE} getToken={setToken} />} />
-      <Route path="accounts/logout" element={<LogOut />} />
+      <Route path="accounts/logout" element={<LogOut removeCookie={removeCookie} />} />
     </Routes>
     </>
   );
