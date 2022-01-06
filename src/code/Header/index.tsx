@@ -53,7 +53,6 @@ type HeaderProps = {
 export const Header = ({title, isAthenticated}: HeaderProps) => {
 
     const navRef = useRef() as MutableRefObject<HTMLInputElement>
-    
 
     useEffect(() => {
         navRef.current.style.boxShadow = "5px 5px 10px #171212"
