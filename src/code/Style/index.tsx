@@ -27,6 +27,18 @@ export const Container = styled.div<{
     }
 `;
 
+export const TitleSizeOne = styled.h1`
+    font-size: 38px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    float: left;
+
+    @media only screen and (max-width: 992px) {
+        float: none;
+        text-align: center;
+    }
+`;
+
 export const TitleSizeThree = styled.h3`
     text-align: center;
     letter-spacing: 2px;
@@ -145,5 +157,32 @@ export const Row = styled.div`
     &:hover {
       background-color: #171212;
       color:white;
+    }
+`;
+
+export const Nav = styled.div`
+    background-color: transparent;
+    padding: 10px;
+    transition: 1s;
+`;
+
+export const Ul = styled.ul`
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: inherit;
+`;
+
+export const Li = styled.li`
+    float: right;
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 18px;
+    
+    @media only screen and (max-width: 992px) {
+        float: none;
     }
 `;
