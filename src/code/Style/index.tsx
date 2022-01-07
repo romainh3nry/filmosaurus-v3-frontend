@@ -181,8 +181,13 @@ export const Li = styled.li`
     padding: 14px 16px;
     text-decoration: none;
     font-size: 18px;
-    
+
     @media only screen and (max-width: 992px) {
         float: none;
     }
+`;
+
+export const Line = styled.div`
+    display: flex;
+    justify-content: center;
 `;
