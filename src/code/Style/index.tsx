@@ -1,5 +1,18 @@
-import styled from 'styled-components'
+import styled, {createGlobalStyle} from 'styled-components'
 import { Link } from "react-router-dom";
+
+export const GlobalStyle = createGlobalStyle`
+    body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background: #83a4d4;
+        background: linear-gradient(to left, #b6fbff, #83a4d4);
+    }
+`;
 
 export const Container = styled.div<{
     marginTop?: string
@@ -256,7 +269,7 @@ export const Icon = styled.div`;
     padding: 15px;
     margin-left: 50px;
     margin-right: 50px;
-    
+
     a {
         color: #171212;
     }
