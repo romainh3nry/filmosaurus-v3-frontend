@@ -112,7 +112,7 @@ export const Login = ({getToken, API_BASE}: LoginProps) => {
 
     return (
         <Container width='60%' marginTop='30px' display='flex' flexDirection='column'>
-            <TitleSizeThree>Login</TitleSizeThree>
+            <TitleSizeThree fontSize='30px'>Login</TitleSizeThree>
             {login.isError && (
                 <Alert backgroundColor='#BB4F37'>Oops ! Something went wrong...</Alert>
             )}

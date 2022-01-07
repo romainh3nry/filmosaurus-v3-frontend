@@ -128,7 +128,7 @@ export const Register = ({API_BASE, getToken}: RegisterProps) => {
 
     return (
         <Container display='flex' marginTop='30px' flexDirection='column' width='60%'>
-            <TitleSizeThree>Register</TitleSizeThree>
+            <TitleSizeThree fontSize='30px'>Register</TitleSizeThree>
             {register.isError && (
                 <Alert backgroundColor='#BB4F37'>Oops ! Something went wrong...</Alert>
             )}

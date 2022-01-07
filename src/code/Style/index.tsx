@@ -4,9 +4,13 @@ import { Link } from "react-router-dom";
 export const Container = styled.div<{
     marginTop?: string
     display?: string
-    width: string
+    width?: string
     flexDirection?: string
     animation?: string
+    respFlexDirection?: string
+    textAlign?: string
+    justifyContent?: string
+    respWidth?: string
 }>`
     margin: auto;
     width: ${p => p.width};
@@ -14,10 +18,13 @@ export const Container = styled.div<{
     display: ${p => p.display};
     flex-direction: ${p => p.flexDirection};
     animation: ${p => p.animation};
+    text-align: ${p => p.textAlign};
+    justify-content: ${p => p.justifyContent};
 
     @media only screen and (max-width: 1080px) {
-        width: 90%;
+        width: ${p => p.respWidth};
         font-size: 15px;
+        flex-direction: ${p => p.respFlexDirection};
     }
 
     @keyframes fadeIn {
@@ -39,10 +46,12 @@ export const TitleSizeOne = styled.h1`
     }
 `;
 
-export const TitleSizeThree = styled.h3`
+export const TitleSizeThree = styled.h3<{
+    fontSize: string 
+}>`
     text-align: center;
     letter-spacing: 2px;
-    font-size: 30px;
+    font-size: ${p => p.fontSize};
 `;
 
 export const Form = styled.form<{
@@ -115,7 +124,11 @@ export const Alert = styled.h4<{
 
 export const Hr = styled.hr`
     border: 1px solid #171212;
+    border-top: none;
+    border-left: none;
+    border-right: none;
     opacity: 0.5;
+    padding: 10px;
 `;
 
 export const Span = styled.span<{
@@ -191,3 +204,60 @@ export const Line = styled.div`
     display: flex;
     justify-content: center;
 `;
+
+export const FlexDiv = styled.div`
+    margin: auto;
+    display: flex;
+    @media only screen and (max-width: 992px) {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+`;
+
+export const Col = styled.div<{
+    height?: string
+}>`
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    height: ${p => p.height}
+
+    @media only screen and (max-width: 992px) {
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+`;
+
+export const CenterDiv = styled.div<{
+    height?: string
+}>`
+    display: flex;
+    width: 100%;
+    height: ${p => p.height};
+    justify-content: center;
+    align-items: center;
+`;
+
+export const Item = styled.span`
+    text-decoration: underline;
+    padding: 5px;
+    margin: 5px;
+
+    &:hover {
+        color: red;
+    }
+`;
+
+export const Icon = styled.div`;
+    font-size: 50px;
+    padding: 15px;
+    margin-left: 50px;
+    margin-right: 50px;
+    
+    a {
+        color: #171212;
+    }
+`
