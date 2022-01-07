@@ -2,33 +2,8 @@ import axios from "axios";
 import React from "react";
 import { useParams } from "react-router-dom";
 import {Spinner} from "../Loader"
-import styled from 'styled-components';
 import { DetailMovie } from "./DetailMovie";
-
-const StyledFirstDiv = styled.div `
-    margin: auto;
-    display: flex;
-    @media only screen and (max-width: 992px) {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-    }
-`;
-
-const StyledDetailCol = styled.div `
-    display: flex;
-    flex-direction: column;
-    padding: 15px;
-`;
-
-const StyledCenteredSpinner = styled.div`
-    display: flex;
-    width: 100%;
-    height: 500px;
-    justify-content: center;
-    align-items: center;
-`;
+import { FlexDiv, CenterDiv, Col } from "../Style";
 
 type ParamType = {
     movieId: string;
@@ -166,17 +141,17 @@ export const Movie = ({API_BASE}: MovieProps) => {
     }, [movieDetail.data])
 
     return (
-        <StyledFirstDiv>
+        <FlexDiv>
             {movieDetail.isError && <span>Something went wrong...</span>}
             {movieDetail.isLoading
-                ? (<StyledCenteredSpinner><Spinner /></StyledCenteredSpinner>)
+                ? (<CenterDiv height="500px"><Spinner /></CenterDiv>)
                 : (
-                    <StyledDetailCol>
+                    <Col>
                         {Object.keys(movieDetail.data).length > 0 && (
                             <DetailMovie image={image} movie={movieDetail.data} ratings={ratings?.ratings} />
                         )}
-                    </StyledDetailCol>
+                    </Col>
                 )}
-        </StyledFirstDiv>
+        </FlexDiv>
     )
 };

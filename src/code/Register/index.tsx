@@ -1,85 +1,15 @@
 import React from 'react';
-import styled from 'styled-components'
 import axios from 'axios';
 import { Spinner } from '../Loader';
 import { useNavigate } from 'react-router';
-
-const StyledContainer = styled.div`
-    margin: auto;
-    width: 60%;
-    margin-top: 30px;
-    display: flex;
-    flex-direction: column;
-
-    h3 {
-        text-align: center;
-        letter-spacing: 2px;
-        font-size: 30px;
-    }
-`;
-
-const StyledForm = styled.form`
-    display: flex;
-    flex-direction: column;
-    padding: 70px 0;
-    padding: 10px 0 20px 0;
-    margin-top: 50px;
-`;
-
-const StyledLabel = styled.label `
-  padding-left: 5px;
-  padding-right: 10px;
-  padding-top: 10px;
-  font-size: 24px;
-
-`;
-
-const StyledInput = styled.input `
-  border: none;
-  border-bottom: 1px solid #171212;
-  background-color: transparent;
-  font-size: 24px;
-  &:focus {
-    outline: none;
-  }
-`;
-
-const StyledButton = styled.button `
-  background: transparent;
-  border: 1px solid #171212;
-  margin-top: 20px;
-  padding: 10px;
-  font-size: 20px;
-  cursor: pointer;
-  transition: all 0.1s ease-in;
-  &:hover {
-    background: #171212;
-    color: #ffffff;
-    fill: #ffffff;
-    stroke: #ffffff;
-  }
-  @media only screen and (max-width: 411px) {
-    margin-top: 5px;
-    width: 50%;
-    border: none;
-}
-`;
-
-const StyledErrorAlert = styled.h4`
-    background-color: #BB4F37;
-    text-align: center;
-    padding: 10px;
-    color: white;
-    border: 3px solid #171212;
-`;
-
-const StyledSuccessAlert = styled.h4`
-    background-color: #6EC170;
-    text-align: center;
-    padding: 10px;
-    color: white;
-    border: 3px solid #171212;
-`;
+import { 
+    Container,
+    TitleSizeThree,
+    Form,
+    InputLabel,
+    InputText,
+    Button,
+    Alert} from '../Style';
 
 type RegisterForm = {
     username: string
@@ -197,45 +127,45 @@ export const Register = ({API_BASE, getToken}: RegisterProps) => {
     };
 
     return (
-        <StyledContainer>
-            <h3>Register</h3>
+        <Container display='flex' marginTop='30px' flexDirection='column' width='60%'>
+            <TitleSizeThree fontSize='30px'>Register</TitleSizeThree>
             {register.isError && (
-                <StyledErrorAlert>Oops ! Something went wrong...</StyledErrorAlert>
+                <Alert backgroundColor='#BB4F37'>Oops ! Something went wrong...</Alert>
             )}
-            {success && <StyledSuccessAlert>Successfully registered ! You're about to be redirected...</StyledSuccessAlert>}
-            <StyledForm onSubmit={handleSubmit}>
-                <StyledLabel>Username</StyledLabel>
-                <StyledInput
+            {success && <Alert backgroundColor='#6EC170'>Successfully registered ! You're about to be redirected...</Alert>}
+            <Form onSubmit={handleSubmit} display='flex' flexDirection='column'>
+                <InputLabel>Username</InputLabel>
+                <InputText
                     type="text"
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
                     value={username}
                     name="username"
                 />
-                <StyledLabel>Email</StyledLabel>
-                <StyledInput
+                <InputLabel>Email</InputLabel>
+                <InputText
                     type="email" 
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                     value={email}
                     name="email"
                 />
-                <StyledLabel>Password</StyledLabel>
-                <StyledInput
+                <InputLabel>Password</InputLabel>
+                <InputText
                     type="password"
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword1(e.target.value)}
                     value={password1}
                     name="password1"
                 />
-                <StyledLabel>Repeat password</StyledLabel>
-                <StyledInput
+                <InputLabel>Repeat password</InputLabel>
+                <InputText
                     type="password"
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword2(e.target.value)}
                     value={password2}
                     name="password2"
                 />
-                <StyledButton type="submit">
+                <Button type="submit">
                     {register.isLoading ? <Spinner height={40} /> : <>Register</>}
-                </StyledButton>
-            </StyledForm>
-        </StyledContainer>
+                </Button>
+            </Form>
+        </Container>
     )
 };

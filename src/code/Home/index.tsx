@@ -3,47 +3,8 @@ import { SearchForm } from './SearchForm';
 import axios from 'axios';
 import {Spinner} from "../Loader"
 import {SearchResults} from "./SearchResults"
-import styled from 'styled-components';
 import {PaginationButton} from "./PaginationButton"
-
-const StyledContainer = styled.div`
-    margin-top: 20px;
-    margin: auto;
-    width: 50%;
-    animation: fadeIn 3s;
-    
-    @keyframes fadeIn {
-        0% {opacity:0;}
-        50% {opacity:0.5;}
-        100% {opacity:1;}
-    }
-
-    @media only screen and (max-width: 1080px) {
-        width: 90%;
-        font-size: 15px;
-    }
-    @media only screen and (min-width: 1080px) {
-        width: 90%;
-        font-size: 18px;
-    }
-`;
-
-const StyledHr = styled.hr`
-    border: 1px solid #171212;
-    opacity: 0.5;
-`;
-
-const StyledCenterSpan = styled.span`
-    text-align:center;
-`;
-
-const StyledBoldSpan = styled.span`
-    font-weight: bold;
-`;
-
-const StyledCenterP = styled.p`
-  text-align: center;
-`;
+import { Container, Hr, Span, P } from "../Style";
 
 type HomeProps = {
     API_BASE: string
@@ -206,29 +167,29 @@ export const Home = ({API_BASE}:HomeProps) => {
          onChange={e => setSearchTerm(e.target.value)}
          onSubmit={handleSubmit}
        />
-       <StyledContainer>
+       <Container marginTop="20px" width="90%" animation="fadeIn 3s">
        {search.data.length > 0 && (
            <>
-           <span>{search.count} results for <StyledBoldSpan>{currentSearch}</StyledBoldSpan></span>
-           <StyledHr />
+           <span>{search.count} results for <Span fontWeight="bold">{currentSearch}</Span></span>
+           <Hr />
            <SearchResults list={search.data} />
            </>
        )}
        {search.isLoading && (
-           <StyledCenterSpan><Spinner /></StyledCenterSpan>
+           <Span textAlign="center"><Spinner /></Span>
        )}
        {search.isError && (
-           <StyledCenterSpan>Something went wrong...</StyledCenterSpan>
+           <Span textAlign="center">Something went wrong...</Span>
        )}
-       <StyledCenterP>
+       <P>
             {search.previous !== null &&
               <PaginationButton move={handlePrevious} text="Previous" />
             }
             {search.next !== null &&
               <PaginationButton move={handleNext} text="Next" />
             }
-        </StyledCenterP>
-       </StyledContainer>
+        </P>
+       </Container>
        </>
     )
 };
