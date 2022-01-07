@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components'
 import axios from 'axios';
 import { Spinner } from '../Loader';
 import { useNavigate } from 'react-router';

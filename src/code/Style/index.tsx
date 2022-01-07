@@ -2,15 +2,28 @@ import styled from 'styled-components'
 
 export const Container = styled.div<{
     marginTop?: string
-    display: string
+    display?: string
     width: string
-    flexDirection: string
+    flexDirection?: string
+    animation?: string
 }>`
     margin: auto;
     width: ${p => p.width};
-    margin-top: ${p => p.marginTop}
-    display: ${p => p.display}
-    flex-direction: ${p => p.flexDirection}
+    margin-top: ${p => p.marginTop};
+    display: ${p => p.display};
+    flex-direction: ${p => p.flexDirection};
+    animation: ${p => p.animation};
+
+    @media only screen and (max-width: 1080px) {
+        width: 90%;
+        font-size: 15px;
+    }
+
+    @keyframes fadeIn {
+        0% {opacity:0;}
+        50% {opacity:0.5;}
+        100% {opacity:1;}
+    }
 `;
 
 export const TitleSizeThree = styled.h3`
@@ -75,4 +88,21 @@ export const Alert = styled.h4<{
     padding: 10px;
     color: white;
     border: 3px solid #171212;
+`;
+
+export const Hr = styled.hr`
+    border: 1px solid #171212;
+    opacity: 0.5;
+`;
+
+export const Span = styled.span<{
+    textAlign?: string
+    fontWeight?: string
+}>`
+    text-align: ${p => p.textAlign};
+    font-weight: ${p => p.fontWeight};
+`;
+
+export const P = styled.p`
+    text-align: center;
 `;
