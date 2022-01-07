@@ -1,20 +1,6 @@
 import React from "react";
 import {Item} from "./Item"
-import styled from 'styled-components';
-import { Link } from "react-router-dom";
-
-const StyledA = styled(Link)`
-  text-decoration: none;
-  color: #171212;
-`;
-
-const StyledRow = styled.div `
-  padding-top: 2px;
-  &:hover {
-    background-color: #171212;
-    color:white;
-  }
-`;
+import { A, Row } from "../Style";
 
 type SearchResultsProps = {
     list: {
@@ -28,11 +14,11 @@ type SearchResultsProps = {
 export const SearchResults = React.memo<any>(({list}: SearchResultsProps) => {
     return list.map(item => {
         return (
-            <StyledA key={item.id} to={`movie/${item.id}`}>
-                <StyledRow>
+            <A key={item.id} to={`movie/${item.id}`}>
+                <Row>
                     <Item item={item} />
-                </StyledRow>
-            </StyledA>
+                </Row>
+            </A>
         )
     })
 });

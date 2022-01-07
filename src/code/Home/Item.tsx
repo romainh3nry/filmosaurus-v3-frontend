@@ -1,21 +1,4 @@
-import styled from 'styled-components';
-
-const StyledItem = styled.div `
-  display: flex;
-  align-items: center;
-  padding-bottom: 5px;
-  margin-top:10px;
-`;
-
-const StyledColumn = styled.span `
-  padding: 0 5px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  a {
-    color: inherite;
-  }
-`;
+import { TableItem, TableDiv } from '../Style';
 
 type ItemProps = {
     item: {
@@ -28,10 +11,10 @@ type ItemProps = {
 
 export const Item = ({item}: ItemProps) => {
     return (
-        <StyledItem>
-            <StyledColumn>{item.title}</StyledColumn>
-            <StyledColumn>({item.year})</StyledColumn>
-            <StyledColumn> | directed by {item.directors}</StyledColumn>
-        </StyledItem>
+        <TableDiv>
+            <TableItem>{item.title}</TableItem>
+            <TableItem>({item.year})</TableItem>
+            <TableItem> | directed by {item.directors}</TableItem>
+        </TableDiv>
     )
 };

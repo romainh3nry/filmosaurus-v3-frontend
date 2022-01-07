@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Link } from "react-router-dom";
 
 export const Container = styled.div<{
     marginTop?: string
@@ -32,9 +33,14 @@ export const TitleSizeThree = styled.h3`
     font-size: 30px;
 `;
 
-export const Form = styled.form`
-    display: flex;
-    flex-direction: column;
+export const Form = styled.form<{
+    display?: string
+    flexDirection?: string
+    textAlign?: string
+}>`
+    display: ${p => p.display};
+    flex-direction: ${p => p.flexDirection};
+    text-align: ${p => p.textAlign};
     padding: 70px 0;
     padding: 10px 0 20px 0;
     margin-top: 50px;
@@ -57,7 +63,10 @@ export const InputText = styled.input`
     }
 `;
 
-export const Button = styled.button`
+export const Button = styled.button<{
+    margin?: string
+    width?: string
+}>`
     background: transparent;
     border: 1px solid #171212;
     margin-top: 20px;
@@ -65,6 +74,8 @@ export const Button = styled.button`
     font-size: 20px;
     cursor: pointer;
     transition: all 0.1s ease-in;
+    margin: ${p => p.margin};
+    width: ${p => p.width};
 
     &:hover {
       background: #171212;
@@ -105,4 +116,34 @@ export const Span = styled.span<{
 
 export const P = styled.p`
     text-align: center;
+`;
+
+export const TableDiv = styled.div`
+    display: flex;
+    align-items: center;
+    padding-bottom: 5px;
+    margin-top:10px;
+`;
+
+export const TableItem = styled.div`
+    padding: 0 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    a {
+      color: inherite;
+    }
+`;
+
+export const A = styled(Link)`
+    text-decoration: none;
+    color: #171212;
+`;
+
+export const Row = styled.div`
+    padding-top: 2px;
+    &:hover {
+      background-color: #171212;
+      color:white;
+    }
 `;

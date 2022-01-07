@@ -133,7 +133,7 @@ export const Register = ({API_BASE, getToken}: RegisterProps) => {
                 <Alert backgroundColor='#BB4F37'>Oops ! Something went wrong...</Alert>
             )}
             {success && <Alert backgroundColor='#6EC170'>Successfully registered ! You're about to be redirected...</Alert>}
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit} display='flex' flexDirection='column'>
                 <InputLabel>Username</InputLabel>
                 <InputText
                     type="text"
