@@ -7,6 +7,7 @@ import { Register } from './Register';
 import { useCookies } from 'react-cookie';
 import { LogOut } from './LogOut';
 import { Login } from './Login';
+import { Account } from './Account';
 
 
 const API_BASE = 'https://filmosaurus-api.net/api/v1'
@@ -37,6 +38,7 @@ const App = () => {
       <Route path="accounts/register" element={<Register API_BASE={API_BASE} getToken={setToken} />} />
       <Route path="accounts/logout" element={<LogOut removeCookie={removeCookie} setToken={setToken} />} />
       <Route path="accounts/login" element={<Login getToken={setToken} API_BASE={API_BASE} />} />
+      <Route path="account/" element={<Account />}/>
     </Routes>
     </>
   );

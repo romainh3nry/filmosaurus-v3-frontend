@@ -22,7 +22,7 @@ export const Header = ({title, isAthenticated}: HeaderProps) => {
                     ? (
                         <>
                         <Li><A to="accounts/logout">Logout</A></Li>
-                        <Li><A to="#">Account</A></Li>
+                        <Li><A to="account/">Account</A></Li>
                         </>
                     )
                     : (

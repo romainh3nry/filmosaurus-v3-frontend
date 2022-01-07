@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import {Spinner} from "../Loader"
 import { Container, Col, TitleSizeThree, Item, Hr, CenterDiv, Icon } from '../Style';
 
