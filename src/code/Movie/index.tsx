@@ -90,6 +90,7 @@ export const Movie = ({API_BASE, token}: MovieProps) => {
     )
     const [image, setImage] = React.useState<undefined | string>(undefined)
     const [ratings, setRatings] = React.useState<MovieRatings | undefined>(undefined)
+    const [isAddedToWatchlist, setIsAddedToWatchlist] = React.useState<boolean>(false)
 
     const handleFetchMovie = React.useCallback(() => {
         dispatchMovieDetail({type: 'MOVIE_FETCH_INIT'})
@@ -142,6 +143,7 @@ export const Movie = ({API_BASE, token}: MovieProps) => {
             .post(url_viewed, data, {headers: headers})
             .then(res => {
                 console.log(res.data);
+                setIsAddedToWatchlist(true)
             })
     }
 
@@ -170,6 +172,7 @@ export const Movie = ({API_BASE, token}: MovieProps) => {
                                 image={image}
                                 movie={movieDetail.data}
                                 ratings={ratings?.ratings} 
+                                isAddedToWatchList={isAddedToWatchlist}
                             />
                         )}
                     </Col>

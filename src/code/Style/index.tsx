@@ -100,7 +100,7 @@ export const InputText = styled.input`
 export const Button = styled.button<{
     margin?: string
     width?: string
-    border: string
+    border?: string
     color?: string
 }>`
     background: transparent;
