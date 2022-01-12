@@ -139,7 +139,7 @@ export const Login = ({getToken, API_BASE}: LoginProps) => {
                     value={password}
                     name="password"
                 />
-                <Button type="submit">
+                <Button border='1px solid #171212' type="submit">
                     {login.isLoading ? <Spinner height={40} /> : <>Login</>}
                 </Button>
             </Form>

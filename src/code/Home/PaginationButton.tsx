@@ -8,7 +8,7 @@ type PaginationButtonProps = {
 
 export const PaginationButton = ({move, text}: PaginationButtonProps) => {
     return (
-      <Button margin='10px' width='15%' 
+      <Button border='1px solid #171212' margin='10px' width='15%' 
         type="button"
         onClick={move}
       >

@@ -13,7 +13,7 @@ export const SearchForm = ({label, searchTerm, onChange, onSubmit,}: SearchFormP
         <Form onSubmit={onSubmit} textAlign='center'>
             <InputLabel>{label}</InputLabel>
             <InputText type="text" value={searchTerm} onChange={onChange}/>
-            <Button type="submit" disabled={!searchTerm}>Search</Button>
+            <Button border='1px solid #171212' type="submit" disabled={!searchTerm}>Search</Button>
         </Form>
     )
 };

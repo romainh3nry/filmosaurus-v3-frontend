@@ -32,7 +32,7 @@ export const DetailMovie = ({image, movie, ratings, handleClick}: DetailMoviePro
                     ? (<img src={image} height="auto" width="500" />)
                     : (<CenterDiv><Spinner /></CenterDiv>)
                 }
-                <Button>Save</Button>
+                <Button border="1px solid #171212">Save</Button>
             </Col>
             <Col height='80%'>
                 <h2>{movie.title} ({movie.year})</h2>

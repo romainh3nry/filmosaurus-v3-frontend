@@ -162,7 +162,7 @@ export const Register = ({API_BASE, getToken}: RegisterProps) => {
                     value={password2}
                     name="password2"
                 />
-                <Button type="submit">
+                <Button border='1px solid #171212' type="submit">
                     {register.isLoading ? <Spinner height={40} /> : <>Register</>}
                 </Button>
             </Form>

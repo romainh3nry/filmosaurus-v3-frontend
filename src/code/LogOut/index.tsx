@@ -24,8 +24,8 @@ export const LogOut = ({removeCookie, setToken}: LogoutProps) => {
         <Container width='60%' marginTop='50px' display='flex' flexDirection='column'>
             <TitleSizeThree fontSize='30px'>Are you sure you want to logout ? </TitleSizeThree>
             <Line>
-                <Button margin='10px' onClick={handleConfirmClick}>Confirm</Button>
-                <Button margin='10px' onClick={handleCancelClick}>Cancel</Button>
+                <Button border='1px solid #171212' margin='10px' onClick={handleConfirmClick}>Confirm</Button>
+                <Button border='1px solid #171212' margin='10px' onClick={handleCancelClick}>Cancel</Button>
             </Line>
         </Container>
     )
