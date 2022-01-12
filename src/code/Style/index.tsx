@@ -60,7 +60,7 @@ export const TitleSizeOne = styled.h1`
 `;
 
 export const TitleSizeThree = styled.h3<{
-    fontSize: string 
+    fontSize?: string 
 }>`
     text-align: center;
     letter-spacing: 2px;

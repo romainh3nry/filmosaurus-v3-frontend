@@ -173,6 +173,7 @@ export const Movie = ({API_BASE, token}: MovieProps) => {
                                 movie={movieDetail.data}
                                 ratings={ratings?.ratings} 
                                 isAddedToWatchList={isAddedToWatchlist}
+                                isAuthenticated={token}
                             />
                         )}
                     </Col>

@@ -17,9 +17,10 @@ type DetailMovieProps = {
     ratings: any
     handleClick: React.MouseEventHandler<HTMLButtonElement>
     isAddedToWatchList?: boolean
+    isAuthenticated: string | undefined
 }
 
-export const DetailMovie = ({image, movie, ratings, handleClick, isAddedToWatchList}: DetailMovieProps) => {
+export const DetailMovie = ({image, movie, ratings, handleClick, isAddedToWatchList, isAuthenticated}: DetailMovieProps) => {
     console.log(ratings)
     return (
         <Container
@@ -34,10 +35,16 @@ export const DetailMovie = ({image, movie, ratings, handleClick, isAddedToWatchL
                     ? (<img src={image} height="auto" width="500" />)
                     : (<CenterDiv><Spinner /></CenterDiv>)
                 }
-                {isAddedToWatchList 
-                    ? <Button type="button" onClick={handleClick} color="#0C7A0E" border="1px solid #0C7A0E">Saved !</Button>
-                    : <Button type="button" onClick={handleClick} border="1px solid #171212">Save</Button>
+                {isAuthenticated 
+                    ? (
+                        isAddedToWatchList 
+                            ? <Button type="button" onClick={handleClick} color="#0C7A0E" border="1px solid #0C7A0E">Saved !</Button>
+                            : <Button type="button" onClick={handleClick} border="1px solid #171212">Save</Button>
+                        
+                    )
+                    : <TitleSizeThree>You need to be authenticated to add this movie in your Watchlist</TitleSizeThree>
                 }
+
             </Col>
             <Col height='80%'>
                 <h2>{movie.title} ({movie.year})</h2>
