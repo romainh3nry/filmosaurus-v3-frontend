@@ -1,5 +1,5 @@
 import {Spinner} from "../Loader"
-import { Container, Col, TitleSizeThree, Item, Hr, CenterDiv, Icon } from '../Style';
+import { Container, Col, TitleSizeThree, Item, Hr, CenterDiv, Icon, Button } from '../Style';
 
 type DetailMovieProps = {
     image: string | undefined
@@ -30,7 +30,9 @@ export const DetailMovie = ({image, movie, ratings, handleClick}: DetailMoviePro
             <Col>
                 {image 
                     ? (<img src={image} height="auto" width="500" />)
-                    : (<CenterDiv><Spinner /></CenterDiv>)}
+                    : (<CenterDiv><Spinner /></CenterDiv>)
+                }
+                <Button>Save</Button>
             </Col>
             <Col height='80%'>
                 <h2>{movie.title} ({movie.year})</h2>

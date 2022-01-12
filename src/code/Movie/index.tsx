@@ -165,7 +165,12 @@ export const Movie = ({API_BASE, token}: MovieProps) => {
                 : (
                     <Col>
                         {Object.keys(movieDetail.data).length > 0 && (
-                            <DetailMovie handleClick={handleClick} image={image} movie={movieDetail.data} ratings={ratings?.ratings} />
+                            <DetailMovie
+                                handleClick={handleClick}
+                                image={image}
+                                movie={movieDetail.data}
+                                ratings={ratings?.ratings} 
+                            />
                         )}
                     </Col>
                 )}
