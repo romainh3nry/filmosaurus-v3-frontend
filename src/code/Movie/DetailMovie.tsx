@@ -14,9 +14,10 @@ type DetailMovieProps = {
         casts: string[]
     }
     ratings: any
+    handleClick: React.MouseEventHandler<HTMLButtonElement>
 }
 
-export const DetailMovie = ({image, movie, ratings}: DetailMovieProps) => {
+export const DetailMovie = ({image, movie, ratings, handleClick}: DetailMovieProps) => {
     console.log(ratings)
     return (
         <Container

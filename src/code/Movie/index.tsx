@@ -6,11 +6,12 @@ import { DetailMovie } from "./DetailMovie";
 import { FlexDiv, CenterDiv, Col } from "../Style";
 
 type ParamType = {
-    movieId: string;
+    movieId: string
 }
 
 type MovieProps = {
     API_BASE: string
+    token: string | undefined
 }
 
 type MovieType = {
@@ -78,7 +79,7 @@ export const movieReducer = (state:MovieState, action:MovieAction) => {
     }
 }
 
-export const Movie = ({API_BASE}: MovieProps) => {
+export const Movie = ({API_BASE, token}: MovieProps) => {
 
     let params = useParams<ParamType>();
     const urlFetchMovie = `${API_BASE}/movie/${params.movieId}`
@@ -89,7 +90,7 @@ export const Movie = ({API_BASE}: MovieProps) => {
     )
     const [image, setImage] = React.useState<undefined | string>(undefined)
     const [ratings, setRatings] = React.useState<MovieRatings | undefined>(undefined)
-    
+
     const handleFetchMovie = React.useCallback(() => {
         dispatchMovieDetail({type: 'MOVIE_FETCH_INIT'})
         axios
@@ -128,6 +129,22 @@ export const Movie = ({API_BASE}: MovieProps) => {
             })
     }
 
+    const handleClick = () => {
+        const url_viewed = `${API_BASE}/accounts/watchlist/add`; 
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${token}`
+        }
+        const data = {
+            "movie_id": params.movieId
+        }
+        axios
+            .post(url_viewed, data, {headers: headers})
+            .then(res => {
+                console.log(res.data);
+            })
+    }
+
     React.useEffect(() => {
         handleFetchMovie()
     }, [])
@@ -148,7 +165,7 @@ export const Movie = ({API_BASE}: MovieProps) => {
                 : (
                     <Col>
                         {Object.keys(movieDetail.data).length > 0 && (
-                            <DetailMovie image={image} movie={movieDetail.data} ratings={ratings?.ratings} />
+                            <DetailMovie handleClick={handleClick} image={image} movie={movieDetail.data} ratings={ratings?.ratings} />
                         )}
                     </Col>
                 )}
