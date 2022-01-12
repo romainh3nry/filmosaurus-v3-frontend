@@ -21,7 +21,6 @@ type DetailMovieProps = {
 }
 
 export const DetailMovie = ({image, movie, ratings, handleClick, isAddedToWatchList, isAuthenticated}: DetailMovieProps) => {
-    console.log(ratings)
     return (
         <Container
             display='flex'
@@ -38,12 +37,11 @@ export const DetailMovie = ({image, movie, ratings, handleClick, isAddedToWatchL
                 {isAuthenticated 
                     ? (
                         isAddedToWatchList 
-                            ? <Button type="button" onClick={handleClick} color="#0C7A0E" border="1px solid #0C7A0E">Saved !</Button>
+                            ? <Button disabled type="button" color="#0C7A0E" border="1px solid #0C7A0E">Saved !</Button>
                             : <Button type="button" onClick={handleClick} border="1px solid #171212">Save</Button>
-                        
+                    
                     )
-                    : <TitleSizeThree>You need to be authenticated to add this movie in your Watchlist</TitleSizeThree>
-                }
+                    : <TitleSizeThree fontSize="15px">You need to be authenticated to add this movie in your Watchlist</TitleSizeThree>}
 
             </Col>
             <Col height='80%'>

@@ -82,8 +82,11 @@ export const movieReducer = (state:MovieState, action:MovieAction) => {
 export const Movie = ({API_BASE, token}: MovieProps) => {
 
     let params = useParams<ParamType>();
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${token}`
+    }
     const urlFetchMovie = `${API_BASE}/movie/${params.movieId}`
-
     const [movieDetail, dispatchMovieDetail] = React.useReducer(
         movieReducer,
         {data: {}, isLoading: false, isError: false}
@@ -131,21 +134,29 @@ export const Movie = ({API_BASE, token}: MovieProps) => {
     }
 
     const handleClick = () => {
-        const url_viewed = `${API_BASE}/accounts/watchlist/add`; 
-        const headers = {
-            'Content-Type': 'application/json',
-            'Authorization': `Token ${token}`
-        }
+        const urlViewed = `${API_BASE}/accounts/watchlist/add`; 
         const data = {
             "movie_id": params.movieId
         }
         axios
-            .post(url_viewed, data, {headers: headers})
+            .post(urlViewed, data, {headers: headers})
             .then(res => {
-                console.log(res.data);
                 setIsAddedToWatchlist(true)
             })
     }
+
+    const isMovieInWatchlist = React.useCallback(() => {
+        if (token !== undefined) {
+            const urlCheck = `${API_BASE}/accounts/watchlist/movie/check?movie_id=${params.movieId}`
+            axios
+                .get(urlCheck, {headers: headers})
+                .then(res => {
+                    res.data.saved
+                        ? setIsAddedToWatchlist(true)
+                        : setIsAddedToWatchlist(false)
+                })
+        }
+    }, [])
 
     React.useEffect(() => {
         handleFetchMovie()
@@ -158,6 +169,10 @@ export const Movie = ({API_BASE, token}: MovieProps) => {
     React.useEffect(() => {
         handleFetchRatings(movieDetail.data.title, movieDetail.data.year)
     }, [movieDetail.data])
+
+    React.useEffect(() => {
+        isMovieInWatchlist()
+    }, [isMovieInWatchlist])
 
     return (
         <FlexDiv>
