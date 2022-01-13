@@ -44,7 +44,7 @@ export const DetailMovie = ({image, movie, ratings, handleClick, isAddedToWatchL
                         )
                         : <TitleSizeThree fontSize="15px">You need to be authenticated to add this movie in your Watchlist</TitleSizeThree>
                 )}
-                
+ 
             </Col>
             <Col height='80%'>
                 <h2>{movie.title} ({movie.year})</h2>

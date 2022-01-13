@@ -38,7 +38,7 @@ const App = () => {
       <Route path="accounts/register" element={<Register API_BASE={API_BASE} getToken={setToken} />} />
       <Route path="accounts/logout" element={<LogOut removeCookie={removeCookie} setToken={setToken} />} />
       <Route path="accounts/login" element={<Login getToken={setToken} API_BASE={API_BASE} />} />
-      <Route path="account/" element={<Account />}/>
+      <Route path="account/" element={<Account API_BASE={API_BASE} token={cookies["auth-token"]} />}/>
     </Routes>
     </>
   );
