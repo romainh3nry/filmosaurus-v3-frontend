@@ -284,7 +284,7 @@ export const ItemList = styled.div`
     border: 1px solid #171212;
     margin: 8px;
     padding: 5px;
-    box-shadow: 5px 5px 2px -1px #171212;
+    box-shadow: 5px 5px 2px 1px #171212;
     transition: 0.5s;
     
     a {
@@ -293,7 +293,7 @@ export const ItemList = styled.div`
     }
 
     &:hover {
-        box-shadow: -5px 5px 2px -1px #171212;
+        box-shadow: 2px 2px 1px 1px #171212;
         transition: 0.5s;
     }
 `;

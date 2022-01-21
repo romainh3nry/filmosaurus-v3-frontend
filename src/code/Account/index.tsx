@@ -98,6 +98,15 @@ export const Account = ({API_BASE, token}: AccountProps) => {
             })
     }, [])
 
+    const handleClick = (movieID:number)=> {
+        const urlUpdate = `${API_BASE}/accounts/watchlist/update/seen/`;
+        axios
+            .put(urlUpdate, {watchlist_id: movieID}, {headers: headers})
+            .then(() => {
+                handleLoadWatchlist()
+            })
+    }
+
     React.useEffect(() => {
         handleLoadWatchlist()
     }, [handleLoadWatchlist])
@@ -112,10 +121,10 @@ export const Account = ({API_BASE, token}: AccountProps) => {
                     {watchlist.data.map(elt => {
                         if (!elt.seen) {
                             return (
-                                <Container display="flex">
+                                <Container key={elt.id} display="flex">
                                 <ItemList>
                                     <Link to={`/movie/${elt.movie_id}`}>{elt.title} ({elt.year})</Link>
-                                    <ItemButton>X</ItemButton>
+                                    <ItemButton type="button" onClick={() => handleClick(elt.id)}>X</ItemButton>
                                 </ItemList>
                                 </Container>
                             )
