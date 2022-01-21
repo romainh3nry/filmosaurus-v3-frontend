@@ -102,10 +102,12 @@ export const Button = styled.button<{
     width?: string
     border?: string
     color?: string
+    textAlign?: string
 }>`
     background: transparent;
     border: ${p => p.border};
     color: ${p => p.color};
+    text-align: ${p => p.textAlign};
     margin-top: 20px;
     padding: 10px;
     font-size: 20px;
@@ -277,3 +279,27 @@ export const Icon = styled.div`;
         color: #171212;
     }
 `
+
+export const ItemList = styled.div`
+    border: 1px solid #171212;
+    margin: 8px;
+    padding: 5px;
+    box-shadow: 5px 5px 2px -1px #171212;
+    transition: 0.5s;
+    
+    a {
+        color: #171212;
+        text-decoration: none;
+    }
+
+    &:hover {
+        box-shadow: -5px 5px 2px -1px #171212;
+        transition: 0.5s;
+    }
+`;
+
+export const ItemButton = styled.button`
+    border: 1px solid #171212;
+    background: transparent;
+    margin: 8px;
+`;

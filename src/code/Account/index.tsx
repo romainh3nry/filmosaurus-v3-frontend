@@ -1,5 +1,7 @@
 import React from "react";
 import axios from 'axios';
+import {Container, TitleSizeThree, Button, ItemButton, ItemList} from '../Style'
+import { Link } from "react-router-dom";
 
 type AccountProps = {
     API_BASE: string
@@ -101,6 +103,27 @@ export const Account = ({API_BASE, token}: AccountProps) => {
     }, [handleLoadWatchlist])
 
     return (
-        <div>Account</div>
+        <Container>
+            <TitleSizeThree fontSize="35px">
+                Account
+            </TitleSizeThree>
+            <Container display="flex">
+                <Container display="flex" flexDirection="column">
+                    {watchlist.data.map(elt => {
+                        if (!elt.seen) {
+                            return (
+                                <Container display="flex">
+                                <ItemList>
+                                    <Link to={`/movie/${elt.movie_id}`}>{elt.title} ({elt.year})</Link>
+                                    <ItemButton>X</ItemButton>
+                                </ItemList>
+                                </Container>
+                            )
+                        }
+                    })}
+                </Container>
+                <Container>2</Container>
+            </Container>
+        </Container>
     )
 };
