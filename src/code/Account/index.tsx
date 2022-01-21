@@ -1,4 +1,5 @@
 import React from "react";
+import axios from 'axios';
 
 type AccountProps = {
     API_BASE: string
@@ -14,7 +15,11 @@ export const Account = ({API_BASE, token}: AccountProps) => {
 
     const handleLoadWatchlist = React.useCallback(() => {
         const url = `${API_BASE}/accounts/watchlist/list`;
-        console.log('loaded');
+        axios
+            .get(url, {headers: headers})
+            .then(res => {
+                console.log(res)
+            })
     }, [])
 
     React.useEffect(() => {
